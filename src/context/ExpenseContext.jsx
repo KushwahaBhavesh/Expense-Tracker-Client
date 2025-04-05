@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import API_URL from '../utils/api';
 
 const ExpenseContext = createContext();
 
@@ -26,7 +27,7 @@ export const ExpenseProvider = ({ children }) => {
 
   // Create axios instance with base URL
   const api = axios.create({
-    baseURL: 'http://localhost:5000/api'
+    baseURL: `${API_URL}/api`
   });
 
   console.log(user)

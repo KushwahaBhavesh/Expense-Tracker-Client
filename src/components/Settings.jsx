@@ -207,7 +207,6 @@ const Settings = () => {
               <option value="GBP">British Pound (£)</option>
               <option value="JPY">Japanese Yen (¥)</option>
               <option value="INR">Indian Rupee (₹)</option>
-              <option value="AUD">Australian Dollar (A$)</option>
               <option value="CAD">Canadian Dollar (C$)</option>
             </select>
             <p className="mt-1 text-xs sm:text-sm text-gray-500">
