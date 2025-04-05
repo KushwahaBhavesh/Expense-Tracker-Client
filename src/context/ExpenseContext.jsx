@@ -13,6 +13,8 @@ export const useExpense = () => {
   return context;
 };
 
+console.log(API_URL)
+
 export const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
