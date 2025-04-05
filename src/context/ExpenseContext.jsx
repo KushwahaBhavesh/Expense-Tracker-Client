@@ -86,23 +86,14 @@ export const ExpenseProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await api.post('/auth/login', { email, password });
-      const { token, user: userData } = response.data;
-      
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
+      const {user: userData } = response.data;
       
       setUser(userData);
       setCurrency(userData.currency || 'USD');
 
-      // Fetch expenses after successful login
-      const currentDate = new Date();
-      const currentMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
-      await fetchExpenses(currentMonth);
+      return response
 
-      toast.success('Login successful!');
-      window.location.href = '/';
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Login failed');
       throw error;
     } finally {
       setLoading(false);
@@ -113,18 +104,14 @@ export const ExpenseProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await api.post('/auth/register', { name, email, password });
-      const { token, user: userData } = response.data;
-      
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
+      const {user: userData } = response.data;
+
       
       setUser(userData);
       setCurrency(userData.currency || 'USD');
       
-      toast.success('Registration successful!');
-      window.location.href = '/';
+      return response
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Registration failed');
       throw error;
     } finally {
       setLoading(false);
@@ -136,24 +123,17 @@ export const ExpenseProvider = ({ children }) => {
     localStorage.removeItem('user');
     setUser(null);
     setExpenses([]);
-    window.location.href = '/login';
   };
 
   const updateUser = async ({name}) => {
     try {
       setLoading(true);
-      const response = await api.put('/auth/profile', {
-        name
-      });
-      const { token, user: userData } = response.data;
-      
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
+      const response = await api.put('/auth/profile', { name });
+      const {user: userData } = response.data;
       
       setUser(userData);
-      toast.success('Profile updated successfully!');
+      return response
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to update profile');
       throw error;
     } finally {
       setLoading(false);
@@ -164,15 +144,11 @@ export const ExpenseProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await api.put('/auth/currency', { currency: newCurrency });
-      const { token, user: userData } = response.data;
-      
-      localStorage.setItem('token', token);
+      const {user: userData } = response.data;
       localStorage.setItem('user', JSON.stringify(userData));
       
       setCurrency(newCurrency);
       setUser(userData);
-      
-      toast.success('Currency updated successfully!');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to update currency');
       throw error;

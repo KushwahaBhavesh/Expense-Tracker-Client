@@ -37,13 +37,13 @@ const Settings = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      const token = localStorage.getItem('token');
       const response = await updateUser({ name: profile.name });
 
       // Update localStorage with new user data
       localStorage.setItem('user', JSON.stringify(response.data));
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
       setIsEditing(false);
+      toast.success('Profile updated successfully!');
     } catch (error) {
       setMessage({
         type: 'error',
@@ -69,7 +69,7 @@ const Settings = () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Error exporting expenses:', error);
+      toast.error(error.response?.data?.message || 'Failed to update profile');
       setMessage({
         type: 'error',
         text: 'Failed to export expenses'

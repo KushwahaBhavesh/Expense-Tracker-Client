@@ -23,7 +23,6 @@ const ExpenseList = () => {
       try {
         await fetchExpenses(month);
       } catch (err) {
-        console.error('Error fetching expenses:', err);
         toast.error('Failed to fetch expenses');
       }
     }, 500),
@@ -117,7 +116,6 @@ const ExpenseList = () => {
         // Refresh the list after successful deletion
         await fetchExpenses(new Date().toISOString().slice(0, 7));
       } catch (err) {
-        console.error('Error deleting expense:', err);
         toast.error('Failed to delete expense');
       }
     }

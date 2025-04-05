@@ -33,7 +33,7 @@ const Login = () => {
       toast.success('Successfully logged in!');
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred during login');
+      toast.error(error.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
