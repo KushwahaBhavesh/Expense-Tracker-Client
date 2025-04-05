@@ -1,8 +1,10 @@
 import axios from 'axios';
+import API_URL from '../utils/api';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/api'
+  baseURL: `${API_URL}/api`
 });
+
 
 // Add a request interceptor
 instance.interceptors.request.use(
