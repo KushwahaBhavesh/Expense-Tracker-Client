@@ -38,7 +38,6 @@ const MonthlySummary = () => {
       try {
         setLoading(true);
         const data = await getMonthlySummary(selectedMonth);
-        console.log(data)
         setSummary(data);
       } catch (err) {
         setError(err.message);

@@ -8,7 +8,6 @@ export const formatCurrency = (amount, currency) => {
     });
     return formatter.format(amount);
   } catch (error) {
-    console.error('Error formatting currency:', error);
     return `${amount} ${currency}`;
   }
 };
