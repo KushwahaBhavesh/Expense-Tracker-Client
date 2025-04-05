@@ -189,7 +189,6 @@ export const ExpenseProvider = ({ children }) => {
         throw new Error('User not found');
       }
       const response = await api.get(`/expenses?month=${month}&userId=${userData.id}`);
-      console.log(response);
       setExpenses(response.data);
     } catch (error) {
       throw error;
