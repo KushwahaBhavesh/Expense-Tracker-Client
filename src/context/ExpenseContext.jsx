@@ -30,8 +30,6 @@ export const ExpenseProvider = ({ children }) => {
     baseURL: `${API_URL}/api`
   });
 
-  console.log(user)
-
   // Add token to requests
   api.interceptors.request.use(
     (config) => {
@@ -139,13 +137,11 @@ export const ExpenseProvider = ({ children }) => {
     window.location.href = '/login';
   };
 
-  const updateUser = async (name, currentPassword, newPassword) => {
+  const updateUser = async ({name}) => {
     try {
       setLoading(true);
       const response = await api.put('/auth/profile', {
-        name,
-        currentPassword,
-        newPassword
+        name
       });
       const { token, user: userData } = response.data;
       

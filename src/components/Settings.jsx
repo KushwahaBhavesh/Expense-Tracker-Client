@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useExpense } from '../context/ExpenseContext';
 
 const Settings = () => {
-  const { expenses, exportExpenses, currency, updateCurrency } = useExpense();
+  const {  exportExpenses, currency, updateCurrency, updateUser } = useExpense();
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -39,15 +39,7 @@ const Settings = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(
-        'http://localhost:5000/api/auth/profile',
-        { name: profile.name },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await updateUser({ name: profile.name });
 
       // Update localStorage with new user data
       localStorage.setItem('user', JSON.stringify(response.data));
@@ -111,11 +103,10 @@ const Settings = () => {
       {/* Profile Settings Section */}
       <div className="bg-white shadow rounded-lg p-4 sm:p-6">
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mb-4 sm:mb-6">Profile Settings</h2>
-        
+
         {message.text && (
-          <div className={`mb-4 p-3 sm:p-4 rounded-md ${
-            message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-          }`}>
+          <div className={`mb-4 p-3 sm:p-4 rounded-md ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+            }`}>
             {message.text}
           </div>
         )}
@@ -132,9 +123,8 @@ const Settings = () => {
               value={profile.name}
               onChange={handleChange}
               disabled={!isEditing}
-              className={`appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                !isEditing ? 'bg-gray-50' : ''
-              }`}
+              className={`appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${!isEditing ? 'bg-gray-50' : ''
+                }`}
             />
           </div>
 
@@ -189,7 +179,7 @@ const Settings = () => {
       {/* Currency Settings Section */}
       <div className="bg-white shadow rounded-lg p-4 sm:p-6">
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mb-4 sm:mb-6">Currency Settings</h2>
-        
+
         <div className="space-y-4">
           <div>
             <label htmlFor="currency" className="block text-sm font-medium text-gray-700">
@@ -235,9 +225,8 @@ const Settings = () => {
               <button
                 onClick={handleExportJSON}
                 disabled={exporting}
-                className={`w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
-                  exporting ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+                className={`w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${exporting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
               >
                 {exporting ? (
                   <>

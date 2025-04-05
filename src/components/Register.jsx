@@ -22,7 +22,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;
@@ -31,7 +31,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post('/auth/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
