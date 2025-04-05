@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../utils/axios';
 import { toast } from 'react-toastify';
+import { useExpense } from '../context/ExpenseContext';
 
 const Login = () => {
+  const {login} = useExpense()
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -26,7 +28,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('/auth/login', formData);
+      const response = await login({email: formData.email, password:formData.password});
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       toast.success('Successfully logged in!');

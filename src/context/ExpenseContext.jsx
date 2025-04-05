@@ -82,7 +82,7 @@ export const ExpenseProvider = ({ children }) => {
     }
   };
 
-  const login = async (email, password) => {
+  const login = async ({email, password}) => {
     try {
       setLoading(true);
       const response = await api.post('/auth/login', { email, password });
@@ -109,7 +109,7 @@ export const ExpenseProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password) => {
+  const register = async ({name, email, password}) => {
     try {
       setLoading(true);
       const response = await api.post('/auth/register', { name, email, password });

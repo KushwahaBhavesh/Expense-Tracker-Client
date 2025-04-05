@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useExpense } from '../context/ExpenseContext';
 
 const Register = () => {
+  const { register } = useExpense()
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -31,7 +33,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('/auth/register', {
+      const response = await register({
         name: formData.name,
         email: formData.email,
         password: formData.password,
